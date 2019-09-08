@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.rmakiyama.android.blueprint.R
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class TimeLineFragment : Fragment() {
+class TimeLineFragment : DaggerFragment() {
 
-    private val viewModel: TimeLineViewModel by viewModels()
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel: TimeLineViewModel by viewModels { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -21,6 +21,7 @@ buildscript {
 
             // utils
             timber          : '4.7.1',
+            dagger          : '2.24',
 
             // testing
             junit           : '4.12',
