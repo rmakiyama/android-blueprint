@@ -1,15 +1,15 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion versions.compileSdk
     defaultConfig {
-        applicationId "com.rmakiyama.android.blueprint"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode versions.versionMajor * 10000 + versions.versionMinor * 100 + versions.versionPatch
         versionName "${versions.versionMajor}.${versions.versionMinor}.${versions.versionPatch}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
     buildTypes {
         release {
@@ -20,7 +20,6 @@ android {
 }
 
 dependencies {
-    implementation project(':shared')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
@@ -28,10 +27,12 @@ dependencies {
     // andoridx
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     implementation "androidx.core:core-ktx:${versions.coreKtx}"
-    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}"
 
     // ui
     implementation "com.google.android.material:material:${versions.material}"
+
+    // utils
+    api "com.jakewharton.timber:timber:${versions.timber}"
 
     // testing
     testImplementation "junit:junit:${versions.junit}"

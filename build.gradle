@@ -17,6 +17,9 @@ buildscript {
             // ui
             material        : '1.1.0-alpha10',
 
+            // utils
+            timber          : '4.7.1',
+
             // testing
             junit           : '4.12',
             testRunner      : '1.1.1',
