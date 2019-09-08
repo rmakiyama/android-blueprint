@@ -1,7 +1,8 @@
-package com.rmakiyama.android.blueprint
+package com.rmakiyama.android.blueprint.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.rmakiyama.android.blueprint.R
 
 class MainActivity : AppCompatActivity() {
 
