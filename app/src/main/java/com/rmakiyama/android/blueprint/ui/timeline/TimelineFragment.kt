@@ -10,16 +10,16 @@ import com.rmakiyama.android.blueprint.R
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class TimeLineFragment : DaggerFragment() {
+class TimelineFragment : DaggerFragment() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
-    private val viewModel: TimeLineViewModel by viewModels { factory }
+    private val viewModel: TimelineViewModel by viewModels { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_time_line, container, false)
+        return inflater.inflate(R.layout.fragment_timeline, container, false)
     }
 }

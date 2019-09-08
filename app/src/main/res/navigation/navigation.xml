@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_timeline"
-        android:name="com.rmakiyama.android.blueprint.ui.timeline.TimeLineFragment"
+        android:name="com.rmakiyama.android.blueprint.ui.timeline.TimelineFragment"
         android:label="TimeLineFragment"
-        tools:layout="@layout/fragment_time_line" />
+        tools:layout="@layout/fragment_timeline" />
 </navigation>

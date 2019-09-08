@@ -9,14 +9,14 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 @Module
-internal abstract class TimeLineModule {
+internal abstract class TimelineModule {
 
     @FragmentScoped
     @ContributesAndroidInjector
-    internal abstract fun contributeTimeLineFragment(): TimeLineFragment
+    internal abstract fun contributeTimeLineFragment(): TimelineFragment
 
     @Binds
     @IntoMap
-    @ViewModelKey(TimeLineViewModel::class)
-    abstract fun bindScheduleViewModel(viewModel: TimeLineViewModel): ViewModel
+    @ViewModelKey(TimelineViewModel::class)
+    abstract fun bindScheduleViewModel(viewModel: TimelineViewModel): ViewModel
 }
