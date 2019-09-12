@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.rmakiyama.android.blueprint.databinding.FragmentTimelineBinding
 import dagger.android.support.DaggerFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 class TimelineFragment : DaggerFragment() {
@@ -30,6 +32,13 @@ class TimelineFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.init()
+        viewModel.articles.observe(viewLifecycleOwner) {
+            it.forEach { Timber.d("debug: ${it.title}") }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getArticle()
     }
 }

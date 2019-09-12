@@ -1,6 +1,9 @@
 package com.rmakiyama.android.blueprint.domain.repository
 
+import com.rmakiyama.android.blueprint.data.Result
+import com.rmakiyama.android.blueprint.model.article.Article
+
 interface TimelineRepository {
 
-    fun getTimeline(): List<String>
+    suspend fun getTimeline(): Result<List<Article>>
 }

@@ -1,6 +1,7 @@
 package com.rmakiyama.android.blueprint.di
 
 import com.rmakiyama.android.blueprint.App
+import com.rmakiyama.android.blueprint.data.NetworkModule
 import com.rmakiyama.android.shared.di.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
@@ -13,7 +14,8 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         ViewModelModule::class,
-        ActivityBindingModule::class
+        ActivityBindingModule::class,
+        NetworkModule::class
     ]
 )
 interface AppComponent : AndroidInjector<App> {

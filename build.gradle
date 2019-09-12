@@ -20,6 +20,11 @@ buildscript {
             // ui
             material        : '1.1.0-alpha10',
 
+            // network
+            retrofit        : '2.6.0',
+            okhttp          : '4.2.0',
+            moshi           : '1.8.0',
+
             // utils
             timber          : '4.7.1',
             dagger          : '2.24',
