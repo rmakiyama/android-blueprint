@@ -20,7 +20,7 @@ internal abstract class TimelineModule {
     @Binds
     @IntoMap
     @ViewModelKey(TimelineViewModel::class)
-    abstract fun bindScheduleViewModel(viewModel: TimelineViewModel): ViewModel
+    abstract fun bindTimelineViewModel(viewModel: TimelineViewModel): ViewModel
 
     @Binds
     internal abstract fun provideTimelineRepository(impl: TimelineRepositoryImpl): TimelineRepository
