@@ -6,7 +6,7 @@ import com.rmakiyama.android.blueprint.model.article.Article
 import com.xwray.groupie.databinding.BindableItem
 
 internal data class TimelineItem(
-    private val article: Article
+    val article: Article
 ) : BindableItem<ItemTimelineBinding>(article.id.hashCode().toLong()) {
 
     override fun getLayout(): Int = R.layout.item_timeline

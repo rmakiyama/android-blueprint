@@ -20,6 +20,7 @@ buildscript {
             // ui
             material        : '1.1.0-alpha10',
             groupie         : '2.5.1',
+            markdown        : '4.1.1',
 
             // network
             retrofit        : '2.6.0',
@@ -42,6 +43,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
     }
 }
 

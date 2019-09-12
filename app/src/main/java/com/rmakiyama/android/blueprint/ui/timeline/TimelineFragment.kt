@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.navigation.findNavController
 import com.rmakiyama.android.blueprint.databinding.FragmentTimelineBinding
+import com.rmakiyama.android.blueprint.ui.timeline.item.TimelineItem
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -17,7 +19,14 @@ class TimelineFragment : DaggerFragment() {
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: TimelineViewModel by viewModels { factory }
     private lateinit var binding: FragmentTimelineBinding
-    private val timelineAdapter: TimelineAdapter = TimelineAdapter()
+    private val timelineAdapter: TimelineAdapter = TimelineAdapter().apply {
+        setOnItemClickListener { item, view ->
+            val body = (item as TimelineItem).article.body
+            view.findNavController().navigate(
+                TimelineFragmentDirections.actionNavigationTimelineToNavigationArticleDetail(body)
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

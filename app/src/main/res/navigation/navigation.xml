@@ -9,5 +9,21 @@
         android:id="@+id/navigation_timeline"
         android:name="com.rmakiyama.android.blueprint.ui.timeline.TimelineFragment"
         android:label="TimeLineFragment"
-        tools:layout="@layout/fragment_timeline" />
+        tools:layout="@layout/fragment_timeline">
+        <action
+            android:id="@+id/action_navigation_timeline_to_navigation_article_detail"
+            app:destination="@id/navigation_article_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_article_detail"
+        android:name="com.rmakiyama.android.blueprint.ui.article.detail.ArticleDetailFragment"
+        android:label="ArticleDetailFragment"
+        tools:layout="@layout/fragment_article_detail">
+
+        <argument
+            android:name="body"
+            app:argType="string" />
+
+    </fragment>
 </navigation>
