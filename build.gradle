@@ -19,6 +19,7 @@ buildscript {
 
             // ui
             material        : '1.1.0-alpha10',
+            groupie         : '2.5.1',
 
             // network
             retrofit        : '2.6.0',

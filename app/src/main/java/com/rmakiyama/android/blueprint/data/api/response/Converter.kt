@@ -1,6 +1,8 @@
 package com.rmakiyama.android.blueprint.data.api.response
 
 import com.rmakiyama.android.blueprint.model.article.Article
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun ArticleResponse.convert(): Article {
     return Article(
@@ -8,7 +10,7 @@ fun ArticleResponse.convert(): Article {
         title = title,
         body = body,
         likeCount = likeCount,
-        createdAt = createdAt,
+        createdAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX", Locale.JAPAN).parse(createdAt),
         url = url
     )
 }

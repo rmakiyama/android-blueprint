@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.rmakiyama.android.blueprint.databinding.FragmentTimelineBinding
 import dagger.android.support.DaggerFragment
-import timber.log.Timber
 import javax.inject.Inject
 
 class TimelineFragment : DaggerFragment() {
@@ -18,6 +17,7 @@ class TimelineFragment : DaggerFragment() {
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: TimelineViewModel by viewModels { factory }
     private lateinit var binding: FragmentTimelineBinding
+    private val timelineAdapter: TimelineAdapter = TimelineAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,14 +26,15 @@ class TimelineFragment : DaggerFragment() {
         FragmentTimelineBinding.inflate(inflater, container, false).also { binding ->
             this.binding = binding
             binding.lifecycleOwner = viewLifecycleOwner
+            binding.timeline.adapter = timelineAdapter
         }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.articles.observe(viewLifecycleOwner) {
-            it.forEach { Timber.d("debug: ${it.title}") }
+        viewModel.articles.observe(viewLifecycleOwner) { articles ->
+            timelineAdapter.update(articles)
         }
     }
 

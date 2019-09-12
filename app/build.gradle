@@ -49,6 +49,8 @@ dependencies {
 
     // ui
     implementation "com.google.android.material:material:${versions.material}"
+    implementation "com.xwray:groupie:${versions.groupie}"
+    implementation "com.xwray:groupie-databinding:${versions.groupie}"
 
     // network
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
