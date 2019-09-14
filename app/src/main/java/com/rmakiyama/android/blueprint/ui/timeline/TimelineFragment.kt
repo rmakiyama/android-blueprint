@@ -8,8 +8,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.rmakiyama.android.blueprint.databinding.FragmentTimelineBinding
 import com.rmakiyama.android.blueprint.ui.timeline.item.TimelineItem
+import com.rmakiyama.android.shared.ui.PagingScrollListener
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -19,14 +21,7 @@ class TimelineFragment : DaggerFragment() {
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: TimelineViewModel by viewModels { factory }
     private lateinit var binding: FragmentTimelineBinding
-    private val timelineAdapter: TimelineAdapter = TimelineAdapter().apply {
-        setOnItemClickListener { item, view ->
-            val body = (item as TimelineItem).article.body
-            view.findNavController().navigate(
-                TimelineFragmentDirections.actionNavigationTimelineToNavigationArticleDetail(body)
-            )
-        }
-    }
+    private val timelineAdapter: TimelineAdapter = TimelineAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +30,8 @@ class TimelineFragment : DaggerFragment() {
         FragmentTimelineBinding.inflate(inflater, container, false).also { binding ->
             this.binding = binding
             binding.lifecycleOwner = viewLifecycleOwner
-            binding.timeline.adapter = timelineAdapter
+            binding.viewModel = viewModel
+            setupTimeline()
         }
         return binding.root
     }
@@ -47,8 +43,21 @@ class TimelineFragment : DaggerFragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.getArticle()
+    private fun setupTimeline() {
+        timelineAdapter.setOnItemClickListener { item, view ->
+            val body = (item as TimelineItem).article.body
+            view.findNavController().navigate(
+                TimelineFragmentDirections.actionNavigationTimelineToNavigationArticleDetail(body)
+            )
+        }
+        binding.timeline.apply {
+            adapter = timelineAdapter
+            (layoutManager as? LinearLayoutManager)?.let { manager ->
+                addOnScrollListener(object : PagingScrollListener(manager) {
+                    override fun onLoadMore() = viewModel.getArticle()
+                    override fun isLoading(): Boolean = viewModel.loading.value ?: false
+                })
+            }
+        }
     }
 }

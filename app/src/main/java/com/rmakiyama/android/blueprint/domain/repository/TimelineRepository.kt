@@ -5,5 +5,5 @@ import com.rmakiyama.android.blueprint.model.article.Article
 
 interface TimelineRepository {
 
-    suspend fun getTimeline(): Result<List<Article>>
+    suspend fun getTimeline(page: Int): Result<List<Article>>
 }

@@ -14,12 +14,12 @@ internal class TimelineRepositoryImpl @Inject constructor(
     private val api: QiitaApiService
 ) : TimelineRepository {
 
-    override suspend fun getTimeline(): Result<List<Article>> {
-        return handleData()
+    override suspend fun getTimeline(page: Int): Result<List<Article>> {
+        return handleData(page)
     }
 
-    private suspend fun handleData(): Result<List<Article>> {
-        val response = api.getRecentArticle()
+    private suspend fun handleData(page: Int): Result<List<Article>> {
+        val response = api.getRecentArticle(page)
         if (response.isSuccessful) {
             val body = response.body()?.map { body -> body.convert() }
             if (body != null) {
