@@ -1,11 +1,5 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
     <!-- Text appearances -->
 
     <style name="TextAppearance.Article.ListItem" parent="TextAppearance.AppCompat" />
@@ -13,11 +7,12 @@
     <style name="TextAppearance.Article.ListItem.Title">
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
     </style>
 
     <style name="TextAppearance.Article.ListItem.Summary">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@android:color/secondary_text_light</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
     </style>
 
 </resources>
