@@ -7,9 +7,10 @@ import retrofit2.http.Query
 
 internal interface QiitaApiService {
 
-    @GET("items?query=android&query=kotlin")
+    @GET("items")
     suspend fun getRecentArticle(
-        @Query("page") page: Int
+        @Query("page") page: Int,
+        @Query("query") query: String
     ): Response<List<ArticleResponse>>
 
     companion object {

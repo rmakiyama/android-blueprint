@@ -3,53 +3,14 @@ package com.rmakiyama.android.blueprint.ui.timeline
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.rmakiyama.android.blueprint.data.Result
-import com.rmakiyama.android.blueprint.domain.usecase.GetTimelineUseCase
-import com.rmakiyama.android.blueprint.model.article.Article
-import com.rmakiyama.android.shared.util.orEmpty
-import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
-internal class TimelineViewModel @Inject constructor(
-    private val getTimeline: GetTimelineUseCase
-) : ViewModel() {
+internal class TimelineViewModel @Inject constructor() : ViewModel() {
 
-    private var page = 1
-
-    private val _loading = MutableLiveData<Boolean>(false)
-    val loading: LiveData<Boolean> = _loading
-
-    private val _articles = MutableLiveData<List<Article>>()
-    val articles: LiveData<List<Article>> = _articles
+    private val _queries = MutableLiveData<List<String>>()
+    val queries: LiveData<List<String>> = _queries
 
     init {
-        getArticles()
-    }
-
-    fun getArticles() {
-        viewModelScope.launch {
-            try {
-                _loading.value = true
-                when (val result = getTimeline(page)) {
-                    is Result.Success -> updateArticleList(articles.orEmpty(), result.data)
-                    is Result.Error -> Timber.e(result.exception)
-                }
-            } catch (e: Exception) {
-                Timber.e(e)
-            } finally {
-                _loading.value = false
-            }
-        }
-    }
-
-    private fun updateArticleList(
-        oldItems: List<Article>,
-        newItems: List<Article>
-    ) {
-        val items = oldItems.plus(newItems).distinctBy { it.id }
-        _articles.value = items
-        page++
+        _queries.value = listOf("android", "kotlin", "flutter", "golang", "github")
     }
 }

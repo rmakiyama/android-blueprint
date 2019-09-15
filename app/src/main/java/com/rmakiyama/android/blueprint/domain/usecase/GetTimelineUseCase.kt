@@ -11,7 +11,7 @@ internal class GetTimelineUseCase @Inject constructor(
     private val timelineRepository: TimelineRepository
 ) {
 
-    suspend operator fun invoke(page: Int): Result<List<Article>> {
-        return withContext(Dispatchers.IO) { timelineRepository.getTimeline(page) }
+    suspend operator fun invoke(page: Int, query: String): Result<List<Article>> {
+        return withContext(Dispatchers.IO) { timelineRepository.getTimeline(page, query) }
     }
 }

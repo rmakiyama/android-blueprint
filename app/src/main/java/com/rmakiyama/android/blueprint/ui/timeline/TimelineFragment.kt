@@ -7,16 +7,10 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.updateLayoutParams
-import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.rmakiyama.android.blueprint.databinding.FragmentTimelineBinding
-import com.rmakiyama.android.blueprint.ui.timeline.item.TimelineItem
-import com.rmakiyama.android.shared.ui.PagingScrollListener
-import com.rmakiyama.android.shared.util.orFalse
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -26,7 +20,7 @@ class TimelineFragment : DaggerFragment() {
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel: TimelineViewModel by viewModels { factory }
     private lateinit var binding: FragmentTimelineBinding
-    private val timelineAdapter: TimelineAdapter = TimelineAdapter()
+    private val timelinePagerAdapter by lazy { TimelinePagerAdapter(childFragmentManager) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,17 +30,18 @@ class TimelineFragment : DaggerFragment() {
             this.binding = binding
             binding.lifecycleOwner = viewLifecycleOwner
             binding.viewModel = viewModel
-            setupTimeline()
+            setupViewPager()
         }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.articles.observe(viewLifecycleOwner) { articles ->
-            timelineAdapter.update(articles)
-        }
         setupWindowInsets(view)
+        viewModel.queries.observe(viewLifecycleOwner) { queries ->
+            timelinePagerAdapter.update(queries)
+            timelinePagerAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun setupWindowInsets(view: View) {
@@ -54,28 +49,17 @@ class TimelineFragment : DaggerFragment() {
             binding.root.updateLayoutParams<FrameLayout.LayoutParams> {
                 topMargin = insets.systemWindowInsetTop
             }
-            binding.timeline.updatePadding(
-                bottom = insets.systemWindowInsetBottom
-            )
             insets
         }
     }
 
-    private fun setupTimeline() {
-        timelineAdapter.setOnItemClickListener { item, view ->
-            val body = (item as TimelineItem).article.body
-            view.findNavController().navigate(
-                TimelineFragmentDirections.actionNavigationTimelineToNavigationArticleDetail(body)
-            )
-        }
-        binding.timeline.apply {
-            adapter = timelineAdapter
-            (layoutManager as? LinearLayoutManager)?.let { manager ->
-                addOnScrollListener(object : PagingScrollListener(manager) {
-                    override fun onLoadMore() = viewModel.getArticles()
-                    override fun isLoading(): Boolean = viewModel.loading.orFalse()
-                })
-            }
+    /**
+     * ViewPagerを初期化する
+     */
+    private fun setupViewPager() {
+        binding.pager.apply {
+            adapter = timelinePagerAdapter
+            binding.tab.setupWithViewPager(this)
         }
     }
 }
