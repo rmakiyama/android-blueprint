@@ -48,7 +48,7 @@ internal class TimelineViewModel @Inject constructor(
         oldItems: List<Article>,
         newItems: List<Article>
     ) {
-        val items = oldItems.plus(newItems)
+        val items = oldItems.plus(newItems).distinctBy { it.id }
         _articles.value = items
         page++
     }
