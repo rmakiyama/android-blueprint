@@ -10,6 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.rmakiyama.android.blueprint.databinding.FragmentArticleDetailBinding
 import io.noties.markwon.Markwon
+import io.noties.markwon.ext.tables.TablePlugin
+import io.noties.markwon.image.glide.GlideImagesPlugin
+import io.noties.markwon.linkify.LinkifyPlugin
 import javax.inject.Inject
 
 class ArticleDetailFragment : Fragment() {
@@ -35,7 +38,16 @@ class ArticleDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val markwon = Markwon.create(view.context)
+        val context = view.context
+        val markwon = Markwon.builder(context)
+            .usePlugins(
+                listOf(
+                    TablePlugin.create(context),
+                    GlideImagesPlugin.create(context),
+                    LinkifyPlugin.create()
+                )
+            )
+            .build()
         markwon.setMarkdown(binding.body, args.body)
     }
 }

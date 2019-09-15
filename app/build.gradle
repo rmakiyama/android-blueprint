@@ -54,6 +54,9 @@ dependencies {
     implementation "com.xwray:groupie:${versions.groupie}"
     implementation "com.xwray:groupie-databinding:${versions.groupie}"
     implementation "io.noties.markwon:core:${versions.markdown}"
+    implementation "io.noties.markwon:ext-tables:${versions.markdown}"
+    implementation "io.noties.markwon:image-glide:${versions.markdown}"
+    implementation "io.noties.markwon:linkify:${versions.markdown}"
 
     // network
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
