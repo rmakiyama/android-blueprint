@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -41,6 +45,19 @@ class TimelineFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.articles.observe(viewLifecycleOwner) { articles ->
             timelineAdapter.update(articles)
+        }
+        setupWindowInsets(view)
+    }
+
+    private fun setupWindowInsets(view: View) {
+        ViewCompat.setOnApplyWindowInsetsListener(view) { _, insets ->
+            binding.root.updateLayoutParams<FrameLayout.LayoutParams> {
+                topMargin = insets.systemWindowInsetTop
+            }
+            binding.timeline.updatePadding(
+                bottom = insets.systemWindowInsetBottom
+            )
+            insets
         }
     }
 
