@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.rmakiyama.android.blueprint.databinding.FragmentTimelineBinding
 import com.rmakiyama.android.blueprint.ui.timeline.item.TimelineItem
 import com.rmakiyama.android.shared.ui.PagingScrollListener
+import com.rmakiyama.android.shared.util.orFalse
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -55,7 +56,7 @@ class TimelineFragment : DaggerFragment() {
             (layoutManager as? LinearLayoutManager)?.let { manager ->
                 addOnScrollListener(object : PagingScrollListener(manager) {
                     override fun onLoadMore() = viewModel.getArticle()
-                    override fun isLoading(): Boolean = viewModel.loading.value ?: false
+                    override fun isLoading(): Boolean = viewModel.loading.orFalse()
                 })
             }
         }

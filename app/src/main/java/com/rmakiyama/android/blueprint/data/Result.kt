@@ -14,3 +14,11 @@ sealed class Result<out T : Any> {
         }
     }
 }
+
+fun <T : Any, R : Any> Result<T>.convert(converter: (T) -> R): Result<R> {
+    return when (this) {
+        is Result.Success -> Result.Success(converter(data))
+        is Result.Error -> Result.Error(exception)
+        is Result.Loading -> Result.Loading
+    }
+}

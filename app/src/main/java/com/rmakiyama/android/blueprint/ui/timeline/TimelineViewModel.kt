@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.rmakiyama.android.blueprint.data.Result
 import com.rmakiyama.android.blueprint.domain.usecase.GetTimelineUseCase
 import com.rmakiyama.android.blueprint.model.article.Article
+import com.rmakiyama.android.shared.util.orEmpty
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -50,9 +51,5 @@ internal class TimelineViewModel @Inject constructor(
         val items = oldItems.plus(newItems)
         _articles.value = items
         page++
-    }
-
-    private fun <T> LiveData<List<T>>.orEmpty(): List<T> {
-        return value.orEmpty()
     }
 }
