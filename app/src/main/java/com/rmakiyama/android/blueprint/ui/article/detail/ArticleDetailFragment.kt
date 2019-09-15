@@ -45,6 +45,7 @@ class ArticleDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupWindowInsets(view)
         val context = view.context
+        // TODO: inject
         val markwon = Markwon.builder(context)
             .usePlugins(
                 listOf(
