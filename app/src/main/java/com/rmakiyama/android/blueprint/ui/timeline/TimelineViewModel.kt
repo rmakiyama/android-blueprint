@@ -25,10 +25,10 @@ internal class TimelineViewModel @Inject constructor(
     val articles: LiveData<List<Article>> = _articles
 
     init {
-        getArticle()
+        getArticles()
     }
 
-    fun getArticle() {
+    fun getArticles() {
         viewModelScope.launch {
             try {
                 _loading.value = true

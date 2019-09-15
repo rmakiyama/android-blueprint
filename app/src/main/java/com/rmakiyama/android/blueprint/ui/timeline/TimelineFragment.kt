@@ -55,7 +55,7 @@ class TimelineFragment : DaggerFragment() {
             adapter = timelineAdapter
             (layoutManager as? LinearLayoutManager)?.let { manager ->
                 addOnScrollListener(object : PagingScrollListener(manager) {
-                    override fun onLoadMore() = viewModel.getArticle()
+                    override fun onLoadMore() = viewModel.getArticles()
                     override fun isLoading(): Boolean = viewModel.loading.orFalse()
                 })
             }
