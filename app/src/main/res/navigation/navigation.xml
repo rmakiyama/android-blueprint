@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_timeline">
         <action
             android:id="@+id/action_navigation_timeline_to_navigation_article_detail"
-            app:destination="@id/navigation_article_detail" />
+            app:destination="@id/navigation_article_detail"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -20,6 +24,10 @@
         android:name="com.rmakiyama.android.blueprint.ui.article.detail.ArticleDetailFragment"
         android:label="ArticleDetailFragment"
         tools:layout="@layout/fragment_article_detail">
+
+        <argument
+            android:name="title"
+            app:argType="string" />
 
         <argument
             android:name="body"

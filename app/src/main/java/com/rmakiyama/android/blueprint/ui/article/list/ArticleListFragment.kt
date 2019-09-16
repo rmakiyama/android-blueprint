@@ -68,9 +68,12 @@ class ArticleListFragment : DaggerFragment() {
 
     private fun setupArticleList() {
         articleListAdapter.setOnItemClickListener { item, view ->
-            val body = (item as ArticleItem).article.body
+            val article = (item as ArticleItem).article
             view.findNavController().navigate(
-                TimelineFragmentDirections.actionNavigationTimelineToNavigationArticleDetail(body)
+                TimelineFragmentDirections.actionNavigationTimelineToNavigationArticleDetail(
+                    article.title,
+                    article.body
+                )
             )
         }
         binding.articleList.apply {

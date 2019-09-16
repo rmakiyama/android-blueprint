@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rmakiyama.android.blueprint.R
 import com.rmakiyama.android.blueprint.databinding.FragmentArticleDetailBinding
@@ -37,6 +39,14 @@ class ArticleDetailFragment : Fragment() {
         FragmentArticleDetailBinding.inflate(inflater, container, false).also { binding ->
             this.binding = binding
             binding.lifecycleOwner = viewLifecycleOwner
+            (activity as? AppCompatActivity)?.apply {
+                title = args.title
+                setSupportActionBar(binding.toolbar)
+                supportActionBar?.run {
+                    setDisplayHomeAsUpEnabled(true)
+                    setHomeButtonEnabled(true)
+                }
+            }
         }
         return binding.root
     }
@@ -56,6 +66,9 @@ class ArticleDetailFragment : Fragment() {
             )
             .build()
         markwon.setMarkdown(binding.body, args.body)
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun setupWindowInsets(view: View) {
