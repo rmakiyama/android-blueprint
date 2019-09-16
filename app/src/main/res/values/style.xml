@@ -7,8 +7,8 @@
         <item name="tabSelectedTextColor">@color/colorPrimary</item>
         <item name="tabTextColor">@color/textColorSecondary</item>
         <item name="tabMode">scrollable</item>
-        <item name="android:paddingStart">@dimen/spacing_large</item>
-        <item name="android:paddingEnd">@dimen/spacing_large</item>
+        <item name="android:paddingStart">@dimen/spacing_medium</item>
+        <item name="android:paddingEnd">@dimen/spacing_medium</item>
         <item name="android:clipToPadding">false</item>
     </style>
 </resources>
