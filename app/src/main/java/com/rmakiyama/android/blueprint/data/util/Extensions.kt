@@ -2,6 +2,7 @@ package com.rmakiyama.android.blueprint.data.util
 
 import com.rmakiyama.android.blueprint.data.Result
 import retrofit2.Response
+import java.io.IOException
 
 fun <T : Any> Response<T>.handleData(): Result<T> {
     if (isSuccessful) {
@@ -11,6 +12,6 @@ fun <T : Any> Response<T>.handleData(): Result<T> {
         }
     }
     return Result.Error(
-        java.io.IOException("Error: data ${code()} | ${message()}")
+        IOException("Error: data ${code()} | ${message()}")
     )
 }
